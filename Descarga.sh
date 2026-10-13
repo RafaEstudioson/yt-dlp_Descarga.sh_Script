@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CarpetaRoot="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "* ¿Quieres descargar como Vídeo (1) o Audio (2)?"
 read Audio
 
@@ -23,8 +25,6 @@ else
     echo "* Esa no es una opción... Asumiré que quieres buscar el título del video... Megalomongolo..."
     read Descarga
   fi
-
-  Cookies="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/cookies.txt"
 
   echo ""
   echo "* ¿En alguna carpeta en específico?"
@@ -55,12 +55,16 @@ else
   echo "..."
   echo ""
   OpcionesDescarga=(
-    --cookies "$Cookies"
     --js-runtime node
     --remote-components ejs:github
     --add-metadata
     --embed-thumbnail
   )
+  Cookies=""$CarpetaRoot"/cookies.txt"
+  if [ -f $Cookies ]
+  then
+    OpcionesDescarga+=(--cookies "$Cookies")
+  fi
   if [ "$Audio" = "2" ]
   then
     OpcionesDescarga+=(-x --audio-format mp3)
