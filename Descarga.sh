@@ -65,11 +65,16 @@ else
   then
     OpcionesDescarga+=(--cookies "$Cookies")
   fi
-  if [ "$Audio" = "2" ]
+  if [ "$Audio" = "1" ]
   then
+    OpcionesDescarga+=(--sponsorblock-mark all)
+  else
     OpcionesDescarga+=(-x --audio-format mp3)
+    OpcionesDescarga+=(--parse-metadata "%(playlist_uploader,artist|)s:^(?P<first_artist>[^,]+)")
+    OpcionesDescarga+=(--parse-metadata "%(album_artist,first_artist|)s:%(meta_album_artist)s")
     OpcionesDescarga+=(--parse-metadata "playlist_index:%(track_number)s")
     OpcionesDescarga+=(--ppa "EmbedThumbnail+ffmpeg_o:-c:v mjpeg -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\"")
+    OpcionesDescarga+=(--sponsorblock-remove all)
   fi
   if [ "$Busqueda" = "1" ]
   then
