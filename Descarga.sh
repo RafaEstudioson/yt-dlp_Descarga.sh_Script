@@ -57,7 +57,8 @@ else
   OpcionesDescarga=(
     --js-runtime node
     --remote-components ejs:github
-    --add-metadata
+    --embed-chapters
+    --embed-metadata
     --embed-thumbnail
   )
   Cookies=""$CarpetaRoot"/cookies.txt"
@@ -70,7 +71,6 @@ else
     OpcionesDescarga+=(--remux-video mp4)
     OpcionesDescarga+=(--embed-subs)
     OpcionesDescarga+=(--sub-langs all)
-    OpcionesDescarga+=(--embed-chapters)
     OpcionesDescarga+=(--sponsorblock-mark all)
   else
     OpcionesDescarga+=(-x --audio-format mp3)
