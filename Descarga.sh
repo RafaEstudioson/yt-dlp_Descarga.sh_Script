@@ -67,6 +67,10 @@ else
   fi
   if [ "$Audio" = "1" ]
   then
+    OpcionesDescarga+=(--remux-video mp4)
+    OpcionesDescarga+=(--embed-subs)
+    OpcionesDescarga+=(--sub-langs all)
+    OpcionesDescarga+=(--embed-chapters)
     OpcionesDescarga+=(--sponsorblock-mark all)
   else
     OpcionesDescarga+=(-x --audio-format mp3)
